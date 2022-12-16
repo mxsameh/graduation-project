@@ -1,0 +1,89 @@
+<script lang="ts">
+	import FooterCol from "./FooterCol.svelte";
+	import Newsletter from "./Newsletter.svelte";
+
+	let cols = [
+		{
+			title: 'my acount',
+			items: [
+				{ name: 'shopping cart', link: '/cart' },
+				{ name: 'account info', link: '/account' },
+				{ name: 'orders', link: '/orders' }
+			]
+		},
+		{
+			title: 'get to know us',
+			items: [
+				{ name: 'about us', link: '/about' },
+				{ name: 'help', link: '/help' },
+				{ name: 'customer support', link: '/support' }
+			]
+		},
+		{
+			title: 'work with us',
+			items: [
+				{ name: 'seller', link: '/seller' },
+				{ name: 'delivery', link: '/delivery' },
+			]
+		},
+	];
+
+  const goTop = () =>{
+    window.scrollTo(0,0)
+  }
+</script>
+
+<footer class="footer">
+	<button class="top" on:click={goTop}>Back to top</button>
+	<div class="footer_content" >
+    {#each cols as col }
+    <FooterCol {col} />
+    {/each}
+  </div>
+
+  <div class="footer_logo">
+    <svg class="logo-svg" viewBox="0 0 443 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.600006 58V0.799994H11.32L37.8 19.36H38.2L64.68 0.799994H75.4V58H62.6V16.8L44.44 28.96V58H31.64V28.96L13.4 16.8V58H0.600006Z" />
+      <path d="M81.8156 58L107.576 0.799994H127.336L153.096 58H139.176L133.736 45.92H101.176L95.7356 58H81.8156ZM105.816 35.52H129.096L117.976 10.8H116.936L105.816 35.52Z" />
+      <path d="M149.538 29.76V0.799994H219.938V29.76H206.978V11.2H189.538V58H176.738V11.2H162.497V29.76H149.538Z" />
+      <path d="M256.956 58.4C247.196 58.4 239.569 55.9733 234.076 51.12C228.636 46.2133 225.916 38.96 225.916 29.36C225.916 19.8133 228.689 12.6133 234.236 7.75999C239.836 2.85333 247.942 0.399994 258.556 0.399994H288.956V10.8H259.436C252.449 10.8 247.276 12.2667 243.916 15.2C240.609 18.1333 238.956 22.8533 238.956 29.36C238.956 35.5467 240.422 40.1333 243.356 43.12C246.289 46.0533 250.582 47.6533 256.236 47.92V25.68H292.076V58.4H256.956ZM268.236 48H279.276V36.08H268.236V48Z" />
+      <path d="M298.456 58L324.216 0.799994H343.976L369.736 58H355.816L350.376 45.92H317.816L312.376 58H298.456ZM322.456 35.52H345.736L334.616 10.8H333.576L322.456 35.52Z" />
+      <path d="M376.147 58V0.799994H424.067C429.987 0.799994 434.574 2.29333 437.827 5.27999C441.134 8.26666 442.787 12.8 442.787 18.88C442.787 24.0533 441.587 28.1067 439.187 31.04C436.787 33.9733 433.374 35.8133 428.947 36.56L442.147 58H427.587L415.347 36.96H388.947V58H376.147ZM422.547 11.2H388.947V26.48L422.547 26.56C424.894 26.56 426.68 25.9733 427.907 24.8C429.187 23.6267 429.827 21.6533 429.827 18.88C429.827 16.0533 429.187 14.08 427.907 12.96C426.68 11.7867 424.894 11.2 422.547 11.2Z" />
+    </svg>
+  </div>
+
+  <Newsletter/>
+</footer>
+
+
+<style lang="scss">
+	.footer {
+		background-color: var(--color-2);
+    padding-bottom: 40px;
+
+    &_content{
+      margin: 24px auto 0;
+      display: flex;
+      gap: 120px;
+      width: fit-content;
+    }
+	}
+  .footer_logo{
+    margin: 40px auto 0;
+    width: fit-content;
+  }
+  .logo-svg{
+    width: 200px;
+    fill: var(--color-4);
+  }
+
+	.top {
+		width: 100%;
+		text-align: center;
+		background-color: var(--color-3);
+		color: #333;
+		font-size: 16px;
+		padding: 10px;
+    cursor: pointer;
+	}
+</style>
