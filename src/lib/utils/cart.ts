@@ -1,8 +1,6 @@
 import Cart from "$lib/stores/cart";
 import { get } from "svelte/store";
 
-let cart = get(Cart)
-
 const getSubtotal = ( products : any) : number =>
 {
   let subtotal = 0;
@@ -18,15 +16,16 @@ const getSubtotal = ( products : any) : number =>
 
     return subtotal
 }
-const removeProduct = (products : any, id : number) =>
+const removeProduct = (id : number) =>
 {
-  const newProducts = products.filter((prod:any) => prod.id != id);
-
-  return newProducts;
+  let cartItems = get(Cart).products
+  const newCartItems = cartItems.filter((prod:any) => prod.id != id);
+  let cart = {products : newCartItems}
+  Cart.set(cart)
 }
 const addProduct = (product : any, quantity : number) =>
 {
-  let cartItems = cart.products
+  let cartItems = get(Cart).products
   let itemIndex = getCartItemIndex(product);
   if(itemIndex != -1)
   {
@@ -38,17 +37,17 @@ const addProduct = (product : any, quantity : number) =>
     let item = toCartItem(product,quantity)
     cartItems.push(item)
   }
+
 }
 
 const getCartItemIndex = (product : any) =>
 {
-  let cartItems = cart.products
+  let cartItems = get(Cart).products
   let index = -1;
   cartItems.forEach((item: any, i: number) =>
     {
       if(item.id == product.id) index = i
     })
-    console.log( index );
     return index
 }
 

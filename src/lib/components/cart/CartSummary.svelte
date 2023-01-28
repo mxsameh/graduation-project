@@ -10,8 +10,6 @@
   $:shipping = cartItems.length ? 50 : 0
   $:total = subtotal + shipping
 
-
-
   const proceed = () =>
   {
     goto('/checkout')

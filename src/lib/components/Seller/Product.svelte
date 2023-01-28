@@ -1,5 +1,6 @@
 <script lang="ts">
 	import products from "$lib/stores/products";
+	import { removeProduct } from "$lib/utils/cart";
 	import ProductCta from "./ProductCta.svelte";
 
   export let product : any;
@@ -7,6 +8,7 @@
 	const deleteProduct = () =>
 	{
 		const newProducts = $products.filter(prod => prod.id != product.id)
+		removeProduct(product.id)
 		products.set(newProducts)
 	}
 

@@ -28,11 +28,7 @@
 
   const deleteProduct = (id : number) =>
   {
-    let products = removeProduct($cart.products, id)
-    cart.update(oldCart => {
-      oldCart.products = products;
-      return oldCart
-    });
+    removeProduct(id)
   }
 
 </script>
