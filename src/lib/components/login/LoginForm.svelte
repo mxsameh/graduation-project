@@ -11,19 +11,20 @@
   const login = () =>
   {
     goto('/')
+    console.log( 'ho' );
   }
 
   
 </script>
 
-<form action="" class="form" bind:this={form}>
+<form class="form" bind:this={form}>
   <label class="label" for="email">email</label>
   <input type="email" class="input" id="email" bind:value={email}>
 
   <label class="label" for="password">password</label>
   <input type="password" class="input" id="password" bind:value={password}>
 
-  <button class="login-btn" on:click={login}>login</button>
+  <button class="login-btn" on:click|preventDefault={login}>login</button>
 </form>
 
 <style lang='scss'>

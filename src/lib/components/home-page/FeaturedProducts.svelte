@@ -6,7 +6,7 @@
 </script>
 
 <div class="features">
-  <Title title={`featured projects`} />
+  <Title title={`featured products`} />
   <div class="features-gallery">
     {#each $products as product }
       <ProductCard {product} />
