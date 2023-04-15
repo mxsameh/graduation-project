@@ -1,5 +1,16 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+	import { page } from "$app/stores";
 	import LoginForm from "$lib/components/login/LoginForm.svelte";
+	import type { ActionData } from "./$types";
+  export let form : ActionData
+
+  const signUpRedirect = () =>
+  {
+    const redirectPath = $page.url.searchParams.get('redirectTo') || '/'
+    goto(`signup/?redirectTo=${redirectPath}`)
+  }
+
 </script>
 
 <header class="header">
@@ -31,8 +42,16 @@
 
   <div class="signup">
     <p class="signup__text">Don't have an accout yet?</p>
-    <a class="signup__link" href="/signup">Sign up here</a>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <p class="signup__link" on:click={signUpRedirect}>Sign up here</p>
   </div>
+  {#if form?.success }
+  <p> success finally</p>
+  {/if}
+  {#if form?.failed }
+  <p> email or password are incorrect</p>
+  {/if}
+
 </main>
 
 <style lang="scss">

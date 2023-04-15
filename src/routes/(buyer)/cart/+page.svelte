@@ -2,22 +2,20 @@
 	import CartSummary from "$lib/components/cart/CartSummary.svelte";
   import ProductsTable from "$lib/components/cart/ProductsTable.svelte";
 	import Title from "$lib/components/home-page/Title.svelte";
-	import cart from "$lib/stores/cart";
-	import { getSubtotal } from "$lib/utils/cart";
-  
-  $:products = $cart.products;
-
+	import cartStore from "$lib/stores/cart";
 </script>
 
 <main class="main">
+  {#if $cartStore}
   <div class="cart_products">
     <Title title={'cart products'}/>
-    <ProductsTable {products} />
+      <ProductsTable products={$cartStore.products} />
   </div>
   <div class="cart_summary">
     <Title title={'cart summary'}/>
     <CartSummary />
   </div>
+  {/if}
 </main>
 
 <style lang="scss">

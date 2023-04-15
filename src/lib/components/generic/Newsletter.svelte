@@ -40,7 +40,8 @@
       border: none;
       outline: none;
       font-size: 16px;
-      width: clamp(200px, 25vw, 700px);
+      width: clamp(200px, 30vw, 700px);
+      border: 1px #333 solid;
     }
     &_btn{
       background-color: var(--color-3);

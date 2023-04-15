@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	import Cart from "$lib/stores/cart";
+	import cartStore from "$lib/stores/cart";
 	import { getSubtotal } from "$lib/utils/cart";
 
-
   let shipping = 0
-  $:cartItems = $Cart.products
+  $:cartItems = $cartStore.products
   $:subtotal = getSubtotal(cartItems)
   $:shipping = cartItems.length ? 50 : 0
   $:total = subtotal + shipping
 
   const proceed = () =>
   {
-    goto('/checkout')
+    if($cartStore.products.length)
+    {
+      goto('/checkout')
+    }
   }
 
 </script>

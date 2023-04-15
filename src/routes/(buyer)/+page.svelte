@@ -1,12 +1,13 @@
 <script>
+
 	import Categories from "$lib/components/home-page/Categories.svelte";
 	import Deals from "$lib/components/home-page/Deals.svelte";
 	import FeaturedProducts from "$lib/components/home-page/FeaturedProducts.svelte";
 
-
 </script>
 
 <main class="main">
+
   <Categories/>
   <FeaturedProducts/>
   <Deals/>

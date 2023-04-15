@@ -1,30 +1,20 @@
 <script lang='ts'>
-	import { goto } from "$app/navigation";
-
+	import type { ActionData } from "../../../routes/(auth)/login/$types";
 
 
   let email: string
   let password: string
-  let form: HTMLFormElement
 
-
-  const login = () =>
-  {
-    goto('/')
-    console.log( 'ho' );
-  }
-
-  
 </script>
 
-<form class="form" bind:this={form}>
+<form class="form" method="POST">
   <label class="label" for="email">email</label>
-  <input type="email" class="input" id="email" bind:value={email}>
+  <input type="email" class="input" id="email" name="email" bind:value={email}>
 
   <label class="label" for="password">password</label>
-  <input type="password" class="input" id="password" bind:value={password}>
+  <input type="password" class="input" id="password" name="password" bind:value={password}>
 
-  <button class="login-btn" on:click|preventDefault={login}>login</button>
+  <button class="login-btn">login</button>
 </form>
 
 <style lang='scss'>

@@ -1,5 +1,4 @@
 <script lang='ts'>
-	import { goto } from "$app/navigation";
 	import SignupForm from "$lib/components/signup/SignupForm.svelte";
 
   let section = 'user type'

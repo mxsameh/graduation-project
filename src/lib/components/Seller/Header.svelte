@@ -1,4 +1,11 @@
 <script lang='ts'>
+	import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher()
+
+  const handleClick = () =>
+  {
+    dispatch('addButtonClicked')
+  }
   
 </script>
 
@@ -14,14 +21,14 @@
       <path d="M376.147 58V0.799994H424.067C429.987 0.799994 434.574 2.29333 437.827 5.27999C441.134 8.26666 442.787 12.8 442.787 18.88C442.787 24.0533 441.587 28.1067 439.187 31.04C436.787 33.9733 433.374 35.8133 428.947 36.56L442.147 58H427.587L415.347 36.96H388.947V58H376.147ZM422.547 11.2H388.947V26.48L422.547 26.56C424.894 26.56 426.68 25.9733 427.907 24.8C429.187 23.6267 429.827 21.6533 429.827 18.88C429.827 16.0533 429.187 14.08 427.907 12.96C426.68 11.7867 424.894 11.2 422.547 11.2Z" />
     </svg>
   </a>
-  <button class="header_cta">+ add product</button>
+  <button class="header_cta" on:click={handleClick}>+ add product</button>
 </header>
 
 <style lang="scss">
 
 .header{
   padding: 16px 24px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,9 +39,10 @@
   }
   &_cta{
     background-color: var(--color-2);
-    font-size: 24px;
-    text-transform: capitalize;
-    padding: 8px 40px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 12px 32px;
     border-radius: 4px;
   }
 }

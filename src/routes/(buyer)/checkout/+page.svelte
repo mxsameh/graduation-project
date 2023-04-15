@@ -1,15 +1,16 @@
 <script lang="ts">
 	import Billing from "$lib/components/checkout/Billing.svelte";
 	import OrderTotal from "$lib/components/checkout/OrderTotal.svelte";
-	import Cart from "$lib/stores/cart";
+	import cartStore from "$lib/stores/cart";
 
-  let products = $Cart.products
 </script>
 
 
 <main class="main">
+{#if $cartStore}
 <Billing />
-<OrderTotal {products} />
+<OrderTotal products={$cartStore.products} />
+{/if}
 </main>
 
 <style lang="scss">

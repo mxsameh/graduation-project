@@ -2,28 +2,28 @@
 	import { goto } from "$app/navigation";
 </script>
 
-<form action="" class="signup">
+<form class="signup" method="POST">
   <div class="signup__info">
     <label class="signup__label" for="name">Name</label>
-    <input type="text" class="signup__input" placeholder="Mohamed Sameh" id='name'>
+    <input type="text" class="signup__input" placeholder="Mohamed Sameh" id='name' name="name">
   </div>
 
   <div class="signup__info">
   <label class="signup__label" for="email">email</label>
-  <input type="email" class="signup__input" placeholder="example@email.com" id='email'>
+  <input type="email" class="signup__input" placeholder="example@email.com" id='email' name="email">
   </div>
 
   <div class="signup__info">
   <label class="signup__label" for="mobile">mobile no.</label>
-  <input type="text" class="signup__input" placeholder="01070099988" id="mobile">
+  <input type="text" class="signup__input" placeholder="01070099988" id="mobile" name="phone">
   </div>
 
   <div class="signup__info">
   <label class="signup__label" for="password">password</label>
-  <input type="password" class="signup__input" id='password'>
+  <input type="password" class="signup__input" id='password' name="password">
   </div>
 
-  <button class="signup__create-btn" on:click={()=>{goto('/')}}>create account</button>
+  <button class="signup__create-btn">create account</button>
 </form>
 
 <style lang='scss'>

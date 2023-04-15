@@ -26,6 +26,10 @@
 
     &_img{
       height: 100px;
+      flex-basis: 50%;
+    }
+    &_info{
+      flex-basis: 50%;
     }
     &_name{
       font-size: 16px;

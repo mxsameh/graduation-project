@@ -3,7 +3,6 @@
 :root {
 	--background-color: #f5f5f5;
 	--color-1: #f5f5f5;
-	/* --color-1 : #F5EFE6; */
 	--color-2 : #E8DFCA;
 	--color-3 : #AEBDCA;
 	--color-4 : #7895B2;
@@ -47,6 +46,15 @@ img {
 	outline: none;
 	border-image: none;
 }
+label{
+	display: block;
+}
+input, select{
+	outline: none;
+	border: none;
+	background-color: transparent;
+}
+
 
 /*
 ** CLASSES
