@@ -2,13 +2,49 @@
 	import { getSubtotal } from '$lib/utils/cart';
 	import Title from '../home-page/Title.svelte';
 	import Payment from './Payment.svelte';
+	import { getDate } from '$lib/utils/date';
+	import { createEventDispatcher } from 'svelte';
 
 	export let products: any;
+
+	interface Iorder {
+		id?: number;
+		date: string;
+		time: string;
+		products: [];
+		shipping: number;
+    subtotal: number;
+		total: number;
+		payment: string;
+	}
+
+  const dispatcher = createEventDispatcher();
 
 	let shipping = 50;
   let subtotal = getSubtotal(products)
 
 	const total = subtotal + shipping;
+
+  const submitOrder = (e: any) =>
+  {
+    console.log(total);
+    const payment = e.detail.payment
+		const { date, time } = getDate();
+
+    const order : Iorder = {
+      date,
+      time,
+      products,
+      shipping,
+      subtotal,
+      total,
+      payment
+    } 
+
+    dispatcher("submitOrder",{order})
+
+  }
+
 </script>
 
 <section class="order">
@@ -40,7 +76,7 @@
 		</div>
 	</div>
 
-  <Payment />
+  <Payment on:submitOrder={submitOrder} />
 </section>
 
 <style lang="scss">
@@ -62,6 +98,10 @@
       text-transform: capitalize;
       font-size: 18px;
     }
+  }
+  .products ul{
+    max-height: 220px;
+    overflow-y: auto;
   }
   .product{
     display: flex;

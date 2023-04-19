@@ -25,7 +25,7 @@
     </button>
   </div>
 
-  {#if user.type == 'buyer'}
+  {#if user?.type == 'buyer'}
   <div class="info">
     <h3 class="info_user">Welcome {user.name}</h3>
     <a href="/orders" class="orders">
@@ -39,9 +39,9 @@
       </svg>
     </a>
   </div>
-  {:else if user.type == "seller"}
+  {:else if user?.type == "seller"}
   <a class="login-btn" href="/seller">Dashboard</a>
-  {:else if user.type == "admin"}
+  {:else if user?.type == "admin"}
   <a class="login-btn" href="/admin">Dashboard</a>
   {:else}
   <a class="login-btn" href="/login?redirectTo=/">login</a>

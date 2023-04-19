@@ -4,7 +4,6 @@
   export let data;
 
   let user = data.user
-
 </script>
 
 <Header {user} />

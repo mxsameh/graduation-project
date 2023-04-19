@@ -5,6 +5,7 @@ type Product =
     id? : number
     name : string
     price : number
+    image : string
     category : string
     sellerId : number
 }
@@ -113,8 +114,8 @@ export default class Products
         try
         {
             const connection = await db.connect()
-            const sql = `INSERT INTO products (name, price, category, seller_id) VALUES ($1, $2, $3, $4) RETURNING *`
-            const result = await connection.query(sql, [newProduct.name, newProduct.price, newProduct.category, newProduct.sellerId])
+            const sql = `INSERT INTO products (name, price, image, category, seller_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`
+            const result = await connection.query(sql, [newProduct.name, newProduct.price, newProduct.image, newProduct.category, newProduct.sellerId])
             const product =  result.rows[0]
 
             connection.release()
@@ -135,8 +136,8 @@ export default class Products
     {
         try {
             const connection = await db.connect()
-            const sql = `UPDATE products SET name=$1, price=$2, category=$3 WHERE id=$4`
-            const result = await connection.query(sql, [product.name, product.price, product.category, product.id])
+            const sql = `UPDATE products SET name=$1, price=$2, image=$3, category=$4 WHERE id=$4`
+            const result = await connection.query(sql, [product.name, product.price, product.image, product.category, product.id])
             return {success : true}
         } catch (err) {
             throw new Error(`Couldn't update product ${product.id}\n${err}`)

@@ -1,5 +1,5 @@
-import Cart from "$lib/stores/cart";
-import { get } from "svelte/store";
+import cartStore from "$lib/stores/cart";
+import { get,  } from "svelte/store";
 
 const getSubtotal = ( products : any) : number =>
 {
@@ -18,31 +18,15 @@ const getSubtotal = ( products : any) : number =>
 }
 const removeProduct = (id : number) =>
 {
-  let cartItems = get(Cart).products
+  let cartItems = get(cartStore).products  
   const newCartItems = cartItems.filter((prod:any) => prod.id != id);
   let cart = {products : newCartItems}
-  Cart.set(cart)
-}
-const addProduct = (product : any, quantity : number) =>
-{
-  let cartItems = get(Cart).products
-  let itemIndex = getCartItemIndex(product);
-  if(itemIndex != -1)
-  {
-    let item = cartItems[itemIndex];
-    item.quantity += quantity;
-  }
-  else
-  {
-    let item = toCartItem(product,quantity)
-    cartItems.push(item)
-  }
-
+  cartStore.set(cart)
 }
 
-const getCartItemIndex = (product : any) =>
+const getCartItemIndex = (cart:any, product : any) =>
 {
-  let cartItems = get(Cart).products
+  let cartItems = cart.products
   let index = -1;
   cartItems.forEach((item: any, i: number) =>
     {
@@ -64,4 +48,4 @@ const toCartItem = (product : any, quantity : number) =>
 }
 
 
-export {getSubtotal, removeProduct, addProduct};
+export {getSubtotal, removeProduct, addProduct, getCartItemIndex, toCartItem};
