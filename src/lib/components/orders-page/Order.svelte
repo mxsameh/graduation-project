@@ -2,10 +2,16 @@
 	import OrderBody from './OrderBody.svelte';
 	import OrderHeader from './OrderHeader.svelte';
 	export let order: any;
+
 </script>
 
 <div class="order">
-	<OrderHeader orderDate={order.date} orderTime={order.time} orderTotal={order.total} orderShipping={order.shipping} />
+	<OrderHeader
+		orderDate={order.date}
+		orderTime={order.time}
+		orderTotal={order.total}
+		orderShipping={order.shipping}
+	/>
 	<OrderBody products={order.products} />
 </div>
 

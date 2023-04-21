@@ -10,11 +10,11 @@ export const GET = async (event: RequestEvent) => {
 		const sellerId = parseInt(event.url.searchParams.get('seller') as string);
 		let products;
 		if (category) {
-			products = await productsTable.findByCategory(category);
+			products = await productsTable.getByCategory(category);
 		} else if (sellerId) {
-			products = await productsTable.findBySeller(sellerId);
+			products = await productsTable.getBySeller(sellerId);
 		} else {
-			products = await productsTable.findAll();
+			products = await productsTable.getAll();
 		}
 
 		return json(products);
@@ -30,7 +30,6 @@ export const POST = async (event: RequestEvent) => {
 		const body = await event.request.json();
 		const product = body.product;
 
-		// add product to db
 		const newProduct = await productsTable.createProduct(product);
 		return json({ success: true });
 	} catch (err: any) {

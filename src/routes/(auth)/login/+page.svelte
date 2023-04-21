@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-	import { page } from "$app/stores";
-	import LoginForm from "$lib/components/login/LoginForm.svelte";
-	import type { ActionData } from "./$types";
-  export let form : ActionData
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import LoginForm from '$lib/components/login/LoginForm.svelte';
+	import type { ActionData } from './$types';
+	export let form: ActionData;
 
-  const signUpRedirect = () =>
-  {
-    const redirectPath = $page.url.searchParams.get('redirectTo') || '/'
-    goto(`signup/?redirectTo=${redirectPath}`)
-  }
+	const signUpRedirect = () => {
+		const redirectPath = $page.url.searchParams.get('redirectTo') || '/';
+		goto(`signup/?redirectTo=${redirectPath}`);
+	};
 
+	let loginType = $page.url.searchParams.get('redirectTo')?.replace('/', '');
 </script>
 
 <header class="header">
@@ -37,62 +37,74 @@
 </header>
 
 <main class="main">
-  <h1 class="main__title">welcome back!</h1>
-  <LoginForm />
+	<h1 class="main__title">welcome back!</h1>
+	<LoginForm />
 
-  <div class="signup">
-    <p class="signup__text">Don't have an accout yet?</p>
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <p class="signup__link" on:click={signUpRedirect}>Sign up here</p>
-  </div>
-  {#if form?.success }
-  <p> success finally</p>
-  {/if}
-  {#if form?.failed }
-  <p> email or password are incorrect</p>
-  {/if}
-
+	<div class="signup">
+		<p class="signup__text">Don't have an accout yet?</p>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<p class="signup__link" on:click={signUpRedirect}>Sign up here</p>
+	</div>
+	{#if form?.failed}
+		<p class="error">Email or password are incorrect please try again</p>
+	{/if}
+	{#if form?.invalid}
+		<p class="error">Email is not for {loginType}</p>
+    <a class="error_link" href="/login">Not {loginType}? Click here</a>
+	{/if}
 </main>
 
 <style lang="scss">
-  .signup{
-    display: flex;
-    width: 100%;
-    gap: 16px;
-    margin-top: 40px;
-    &__text{
-      color: #333;
-      font-size: 16px;
-    }
-    &__link{
-      color: var(--color-4);
-      font-size: 16px;
-      text-decoration: underline;
-    }
+	.error {
+		margin-top: 24px;
+		color: rgb(231, 66, 66);
+		font-size: 16px;
+		text-align: center;
+	}
+  .error_link{
+		margin-top: 16px;
+		font-size: 16px;
+		text-align: center;
+    text-decoration: underline;
+    color: var(--color-4);
+  }
+	.signup {
+		display: flex;
+		width: 100%;
+		gap: 16px;
+		margin-top: 40px;
+		&__text {
+			color: #333;
+			font-size: 16px;
+		}
+		&__link {
+			color: var(--color-4);
+			font-size: 16px;
+			text-decoration: underline;
+		}
+	}
+	.header {
+		width: 100vw;
+		padding: 16px;
 
-  }
-  .header{
-    width: 100vw;
-    padding: 16px;
-
-    &__logo{
-      width: 200px;
-      fill: var(--color-4);
-      display: block;
-      margin: 0 auto;
-    }
-  }
-  .main{
-    display: flex;
-    width: 100%;
-    max-width: 400px;
-    margin: 40px auto;
-    align-items: center;
-    flex-direction: column;
-    &__title{
-      font-size: 40px;
-      text-transform: capitalize;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-  }
+		&__logo {
+			width: 200px;
+			fill: var(--color-4);
+			display: block;
+			margin: 0 auto;
+		}
+	}
+	.main {
+		display: flex;
+		width: 100%;
+		max-width: 400px;
+		margin: 40px auto;
+		align-items: center;
+		flex-direction: column;
+		&__title {
+			font-size: 40px;
+			text-transform: capitalize;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+	}
 </style>

@@ -55,7 +55,7 @@ export default class Users
         }
     }
     
-    async findSeller(id : number) : Promise <User>
+    async findUser(id : number) : Promise <User>
     {
         try
         {

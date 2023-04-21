@@ -18,7 +18,6 @@ export const POST = async (event : RequestEvent) =>
 {
     try{
         const body = await event.request.json()
-        console.log(body);
         const newUser = body.user
         newUser.password = hashPassword(newUser.password)
         const user = await usersTable.create(newUser)

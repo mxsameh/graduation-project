@@ -17,22 +17,20 @@
 				'Content-Type': 'application/json'
 			}
 		});
-    const response = await req.json()
-    console.log(response);
+		const response = await req.json();
 	};
 
-	const submitOrder = (e: any) => {
+	const submitOrder = async (e: any) => {
 		let order = e.detail.order;
 		let products = order.products.map((p: any) => {
 			return { id: p.id, quantity: p.quantity };
 		});
-		order = { ...order, products, buyerId: user.id};
+		order = { ...order, products, buyerId: user.id };
 
 		// add order to db
-    // addOrder(order)
-
-		// goto orders page
-    goto('/orders')
+		addOrder(order).then((data) => {
+			goto('/orders');
+		});
 	};
 </script>
 

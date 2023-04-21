@@ -26,6 +26,5 @@ export const actions = {
             const redirectPath = event.url.searchParams.get('redirectTo') || '/'
             throw redirect(303, redirectPath)
         }
-        console.log(data);
     }
 }  

@@ -30,7 +30,7 @@
 
 <style lang="scss">
 	.icon {
-		width: 24px;
+		width: 20px;
 		fill: #333;
 		cursor: pointer;
 	}

@@ -6,23 +6,58 @@
 	export let product: any;
 	export let quantity: any;
 
+	let clearPopup = false;
+
 	const addProduct = (product: any, quantity: number) => {
 		let itemIndex = getCartItemIndex($cartStore, product);
+		$cartStore.seller_id = product.seller_id;
 		if (itemIndex != -1) {
 			let item = $cartStore.products[itemIndex];
 			item.quantity += quantity;
 		} else {
 			let item = toCartItem(product, quantity);
-      let newCart = {products: [...$cartStore.products, item]}
-      cartStore.set(newCart)
+			$cartStore.products = [...$cartStore.products, item];
 		}
+		goto('/cart');
 	};
 
 	const handleClick = () => {
-		addProduct(product, quantity)
-		goto('/cart');
+		if ($cartStore.seller_id != -1 && product.seller_id != $cartStore.seller_id) {
+			clearPopup = true;
+			return;
+		}
+		addProduct(product, quantity);
+	};
+	const clearCart = () => {
+		$cartStore.products = [];
+		addProduct(product, quantity);
+	};
+	const closePopup = (e: any) => {
+		const target = e.target as HTMLElement;
+		if (target.classList.contains('clear-popup')) clearPopup = true;
 	};
 </script>
+
+{#if clearPopup}
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<div class="clear-popup" on:click={closePopup}>
+		<div class="clear-popup_container">
+			<h3 class="clear-popup_heading">There's already an open basket</h3>
+			<p class="clear-popup_text">
+				are you sure you want to delete the old cart and create a new one?
+			</p>
+			<div class="clear-popup_btns">
+				<button class="clear-btn btn" on:click={clearCart}>Clear cart</button>
+				<button
+					class="no-btn btn"
+					on:click={() => {
+						clearPopup = false;
+					}}>Cancel</button
+				>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <button class="add" on:click={handleClick}>
 	<svg class="add_icon" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,5 +97,53 @@
 		&:active {
 			scale: 0.9;
 		}
+	}
+	.clear-popup {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba($color: #000000, $alpha: 0.8);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		&_container {
+			background-color: white;
+			width: clamp(200px, 80vw, 600px);
+			text-align: center;
+			padding: 40px 32px;
+			border-radius: 12px;
+		}
+		&_heading {
+			font-size: 24px;
+		}
+		&_text {
+			font-size: 16px;
+			margin-top: 16px;
+		}
+		&_btns {
+			margin-top: 32px;
+			display: flex;
+			gap: 24px;
+			justify-content: center;
+		}
+	}
+	.btn {
+		padding: 10px 24px;
+		font-size: 16px;
+		width: 124px;
+		border-radius: 4px;
+	}
+	.clear-btn {
+		background-color: var(--color-4);
+		color: white;
+		font-weight: bold;
+		cursor: pointer;
+	}
+	.no-btn {
+		background-color: var(--color-1);
+		cursor: pointer;
 	}
 </style>

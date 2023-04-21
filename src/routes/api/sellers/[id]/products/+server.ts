@@ -6,6 +6,6 @@ const productsTable = new Products()
 export const GET = async ( event ) =>
 {
     const sellerId = parseInt( event.params.id )
-    const products = await productsTable.findBySeller( sellerId )
-    return json({products})
+    const products = await productsTable.getBySeller( sellerId )
+    return json(products)
 }

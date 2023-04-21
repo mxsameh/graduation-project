@@ -1,13 +1,19 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
 
+    export let tabs : any;
 
     const dispatch = createEventDispatcher()
-    let activeTab = "users"
+
+    let activeTab = tabs[0] 
+	let tabNames = tabs.map((tab: any) => tab.name);
+    let activeTabName = tabNames[0]
 
     const handleTabClick = (e : any) =>
     {
-        activeTab = e.target.innerText.toLowerCase();
+        const id = e.target.dataset.id
+        activeTab = tabs[id]
+        activeTabName = activeTab.name
         dispatch('tabClicked',{activeTab})
     }
 
@@ -15,8 +21,9 @@
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <ul class="tabs">
-    <li data-id=1 class="tabs_item" class:tabs_item-active={activeTab == "users"} on:click={handleTabClick}>users</li>
-    <li data-id=2 class="tabs_item" class:tabs_item-active={activeTab == "products"} on:click={handleTabClick}>products</li>
+    {#each tabNames as tabName,index}
+    <li data-id={index} class="tabs_item" class:tabs_item-active={activeTabName == tabName} on:click={handleTabClick}>{tabName}</li>
+    {/each}
 </ul>
 
 

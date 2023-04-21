@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Review from "./Review.svelte";
 
-
   export let product : any
+  // console.log(product.images);
   
 </script>
 
@@ -12,7 +12,7 @@
     <div class="product_info">
       <h3 class="product_name">{product.name}</h3>
       <p class="product_price">$ {product.price}</p>
-      <Review stars={product.reviewsStars} reviews={product.reviewsNumber} />
+      <!-- <Review stars={product.reviewsStars} reviews={product.reviewsNumber} /> -->
     </div>
   </a>
 

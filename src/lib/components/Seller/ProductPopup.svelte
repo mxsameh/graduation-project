@@ -64,6 +64,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		z-index: 20;
 
 		&_container {
 			width: clamp(200px, 100%, 600px);

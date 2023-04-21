@@ -6,7 +6,7 @@ const usersTable = new Users();
 export const GET = async ( event ) =>
 {
     const id = parseInt( event.params.id )
-    const seller = await usersTable.findSeller(id)
+    const seller = await usersTable.findUser(id)
     delete seller.password
 
     return json({ seller })

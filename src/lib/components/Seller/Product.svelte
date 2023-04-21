@@ -34,7 +34,6 @@
 			body: JSON.stringify({product})
 		})
 		const data = await respone.json()
-		console.log(data);
 
 		isPopupOpened = false
 	}

@@ -1,14 +1,15 @@
-<script>
-	import products from "$lib/stores/products";
+<script lang="ts">
 	import ProductCard from "./ProductCard.svelte";
 	import Title from "./Title.svelte";
+
+  export let products : any;
 
 </script>
 
 <div class="features">
   <Title title={`featured products`} />
   <div class="features-gallery">
-    {#each $products as product }
+    {#each products as product }
       <ProductCard {product} />
     {/each}
   </div>

@@ -4,7 +4,7 @@
 
 <tr class="table_row product">
 	<td class="table_data product_details">
-		<img class="product_image" src={product.image} alt="" />
+		<img class="product_image" src={product.images[0]} alt="" />
 		<span class="product_name">{product.name}</span>
 	</td>
 	<td class="table_data product_price">{ product.price } L.E</td>

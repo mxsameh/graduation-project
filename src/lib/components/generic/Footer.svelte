@@ -8,7 +8,8 @@
 			items: [
 				{ name: 'shopping cart', link: '/cart' },
 				{ name: 'account info', link: '/account' },
-				{ name: 'orders', link: '/orders' }
+				{ name: 'orders', link: '/orders' },
+				{ name: 'logout', link: '/logout' },
 			]
 		},
 		{

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import OrderProduct from './OrderProduct.svelte';
-
 	export let products: any;
 </script>
 

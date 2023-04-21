@@ -1,19 +1,13 @@
-import products from "$lib/stores/products";
-import { get } from "svelte/store";
 import type { PageLoad } from "./$types";
 
-const getProduct = (id : number) =>
+export const load : PageLoad = async ({ params, url, fetch }) =>
 {
-  const productsData = get(products)
-  const product = productsData.filter( product => product.id == id)
-  return product[0]
-}
+  const id = parseInt(params.id)
+  const origin = url.origin
 
-export const load : PageLoad = ({ params }) =>
-{
-  let id = parseInt(params.id)
-
-  const product = getProduct(id)
+  const req = await fetch(`${origin}/api/products/${id}`)
+  const res = await req.json()
+  const product = res.product
 
   return{
     product

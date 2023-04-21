@@ -1,30 +1,33 @@
 <script lang='ts'>
 	import { page } from "$app/stores";
 	import Header from "$lib/components/seller/Header.svelte";
-	import ProductsList from "$lib/components/seller/ProductsList.svelte";
   import AddPopup from "$lib/components/seller/ProductPopup.svelte"
 	import { onMount } from "svelte";
+	import Dashboard from "$lib/components/admin/Dashboard.svelte";
   
   export let data;
+
   const seller = data.seller
-  const origin = $page.url.origin
+  const sellerToken = data.sellerToken
+  const origin = $page.url.origin + `/api/sellers/${seller.id}`
+
   let products : any;
   let isPopupOpened = false
 
-  const getProducts = async() =>
-  {
-    const response = await fetch(`${origin}/api/sellers/${seller.id}/products`)
-    const body = await response.json()
-    const products = body.products
-    return products
-  }
+  let tabs = [
+    {name: 'products', itemsUrl:`${origin}/products`},
+    {name: 'orders', itemsUrl:`${origin}/orders`}
+  ]
+
+  // const getProducts = async() =>
+  // {
+  //   const response = await fetch(`${origin}/api/sellers/${seller.id}/products`)
+  //   const body = await response.json()
+  //   const products = body.products
+  //   return products
+  // }
 
 
-  onMount(() =>
-  {
-    getProducts().then(data=>products = data)
-  })
-  
   const handleAddClick = () =>
   {
     // open popup
@@ -43,8 +46,8 @@
       body : JSON.stringify({product : newProduct})
     })
 
-    getProducts().then(data=>products = data)
-    isPopupOpened = false 
+    // getProducts().then(data=>products = data)
+    // isPopupOpened = false 
   }
 
 </script>
@@ -55,16 +58,13 @@
 {/if}
 
 <main class="main">
-  {#if products}
-    <ProductsList {products}/>
-  {:else}
-  <h1>loading....</h1>
-  {/if}
+  <Dashboard {tabs} token={sellerToken}/>
 </main>
 
 <style lang='scss'>
   .main{
-    margin: 24px;
+    width: 100%;
+    height: calc(100vh - 80px);
   }
   
 </style>

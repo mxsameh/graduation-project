@@ -27,7 +27,6 @@
 
   const submitOrder = (e: any) =>
   {
-    console.log(total);
     const payment = e.detail.payment
 		const { date, time } = getDate();
 

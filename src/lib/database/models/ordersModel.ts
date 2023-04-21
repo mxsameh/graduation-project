@@ -30,8 +30,10 @@ const get = async (conn: PoolClient, orderId: number) => {
 
 const getProduct = async (conn: PoolClient, productId: number) => {
 	const sql = `SELECT * FROM products WHERE id=$1`;
-	const res = await conn.query(sql, [productId]);
-	return res.rows[0];
+	const result = await conn.query(sql, [productId]);
+	let product = result.rows[0];
+	product.images = product.images.split(',');
+	return product;
 };
 
 export default class orders {
@@ -48,16 +50,26 @@ export default class orders {
 
 			connection.release();
 			return orders;
-			// const sql = `
-			// select p.id, o.id
-			// from products p, orders o, order_products op
-			// where p.id=op.product_id and
-			// o.id=op.order_id and
-			// o.buyer_id=$1
-			// group by o.id
-			// `;
 		} catch (err) {
 			throw new Error(`Couldn't get order ${userId}\n${err}`);
+		}
+	}
+
+	async getSellerOrders(sellerId: number) {
+		try {
+			const connection = await db.connect();
+			let orders: any = [];
+			const sql = `SELECT id FROM orders WHERE seller_id=$1`;
+			const res = await connection.query(sql, [sellerId]);
+			const ordersIds = res.rows;
+			ordersIds.forEach((item) => {
+				orders.push(item.id);
+			});
+
+			connection.release();
+			return orders;
+		} catch (err) {
+			throw new Error(`Couldn't get order ${sellerId}\n${err}`);
 		}
 	}
 
@@ -73,7 +85,7 @@ export default class orders {
 
 			for (const p of orderProducts) {
 				let product = await getProduct(connection, p.id);
-				product = {...product, quantity: p.quantity}
+				product = { ...product, quantity: p.quantity };
 				products.push(product);
 			}
 			order = { ...order, products };

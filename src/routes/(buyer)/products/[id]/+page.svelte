@@ -5,7 +5,7 @@
 	export let data  : any;
 	let product = data.product
 
-	let activeTab = 'description'
+	let activeTab = 'details'
 </script>
 
 
@@ -21,18 +21,18 @@
 		<nav class="info_nav">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<ul class="tabs">
-				<li class="tab" on:click={()=>{activeTab='description'}} class:is-active={activeTab == 'description'}>description</li>
+				<li class="tab" on:click={()=>{activeTab='details'}} class:is-active={activeTab == 'details'}>details</li>
 				<li class="tab" on:click={()=>{activeTab='information'}} class:is-active={activeTab == 'information'}>information</li>
 			</ul>
 		</nav>
 
 		<div class="info_content">
-			{#if activeTab == 'description' }
-			<h1 class="info_title">product description</h1>
-			<div class="info_text">{product.desc}</div>
+			{#if activeTab == 'details' }
+			<h1 class="info_title">product details</h1>
+			<div class="info_text">{product.details}</div>
 			{:else if activeTab == 'information'}
 			<h1 class="info_title">product information</h1>
-			<div class="info_text">{product.info}</div>
+			<div class="info_text">{product.information}</div>
 			{/if}
 		</div>
 	</section>

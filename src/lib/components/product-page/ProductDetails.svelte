@@ -18,10 +18,10 @@
 <div class="product">
   <h1 class="product_name">{product.name}</h1>
   <div class="product_reviews">
-    <Review reviews={product.reviewsNumber} stars={product.reviewsStars} />
+    <Review reviews={product.reviews_number} stars={product.reviews_stars} />
   </div>
   <h2 class="product_price">${product.price}</h2>
-  <p class="product_details"> {product.details} </p>
+  <p class="product_description"> {product.description} </p>
 
   {#if product.sizes }
   <div class="product_sizes">
@@ -67,7 +67,7 @@
       margin-top: 16px;
       color: #333;
     }
-    &_details{
+    &_description{
       font-size: 16px;
       color: #555;
       margin-top: 24px;

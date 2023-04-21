@@ -8,5 +8,6 @@ CREATE TABLE orders (
     subtotal numeric NOT NULL,
     total numeric NOT NULL,
     payment varchar(100) NOT NULL,
+    seller_id int REFERENCES users(id) ON DELETE CASCADE
     buyer_id int REFERENCES users(id) ON DELETE CASCADE
 );

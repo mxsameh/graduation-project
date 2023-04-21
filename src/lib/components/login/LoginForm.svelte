@@ -32,8 +32,10 @@
   .input{
     font-size: 16px;
     margin-top: 12px;
-    padding: 8px 16px;
+    padding: 12px 16px;
     width: 100%;
+    border: 2px solid var(--color-2);
+    background-color: transparent;
   }
 
   .login-btn{

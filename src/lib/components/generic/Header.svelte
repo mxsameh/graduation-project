@@ -40,9 +40,9 @@
     </a>
   </div>
   {:else if user?.type == "seller"}
-  <a class="login-btn" href="/seller">Dashboard</a>
+  <a class="login-btn" href="/seller">Seller Dashboard</a>
   {:else if user?.type == "admin"}
-  <a class="login-btn" href="/admin">Dashboard</a>
+  <a class="login-btn" href="/admin">Admin Dashboard</a>
   {:else}
   <a class="login-btn" href="/login?redirectTo=/">login</a>
   {/if}
@@ -124,13 +124,14 @@
   }
 
   .login-btn{
-    text-transform: uppercase;
-    letter-spacing: 0px;
+    text-transform: capitalize;
+    letter-spacing: .5px;
     background-color: var(--color-3);
     color: white;
-    padding: 12px 32px;
+    padding: 12px 24px;
     border-radius: 8px;
     font-size: 14px;
+    flex-shrink: 0;
     
   }
 

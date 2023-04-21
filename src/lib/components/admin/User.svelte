@@ -28,7 +28,6 @@
         flex-wrap: wrap;
         background-color: white;
         border-radius: 12px;
-        margin-bottom: 24px;
         padding: 16px 16px 4px;
     }
     .info{
