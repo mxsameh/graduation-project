@@ -1,7 +1,4 @@
 <script lang='ts'>
-	import type { ActionData } from "../../../routes/(auth)/login/$types";
-
-
   let email: string
   let password: string
 

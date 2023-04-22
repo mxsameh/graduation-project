@@ -1,9 +1,12 @@
 <script lang="ts">
 	import ProductDetails from '$lib/components/product-page/ProductDetails.svelte';
 	import ProductImages from '$lib/components/product-page/ProductImages.svelte';
+	import UserStore from '$lib/stores/userStore';
 
 	export let data  : any;
 	let product = data.product
+	let user = data.user
+	$UserStore = user
 
 	let activeTab = 'details'
 </script>

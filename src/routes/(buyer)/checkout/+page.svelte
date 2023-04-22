@@ -3,12 +3,13 @@
 	import { page } from '$app/stores';
 	import Billing from '$lib/components/checkout/Billing.svelte';
 	import OrderTotal from '$lib/components/checkout/OrderTotal.svelte';
-	import cartStore from '$lib/stores/cart';
+	import cartStore, { clearCart } from '$lib/stores/cart';
 
 	export let data;
 	let user = data.user;
 
 	const addOrder = async (order: any) => {
+		clearCart()
 		const url = $page.url.origin + '/api/orders';
 		const req = await fetch(url, {
 			method: 'POST',

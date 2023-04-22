@@ -4,6 +4,10 @@ import { writable } from 'svelte/store';
 let cart;
 let cartStore: any;
 
+export const clearCart = () => {
+	if (browser) localStorage.removeItem('cart');
+};
+
 if (browser) {
 	if (localStorage.getItem('cart')) {
 		// Load Data
@@ -19,7 +23,7 @@ if (browser) {
 	cartStore = writable(cart);
 
 	cartStore.subscribe((data: any) => {
-    let cart = JSON.stringify(data)
+		let cart = JSON.stringify(data);
 
 		localStorage.setItem('cart', cart);
 	});

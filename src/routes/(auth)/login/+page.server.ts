@@ -25,8 +25,8 @@ export const actions = {
 					phone: user.phone,
 					type: user.type
 				};
-				if (userData.type != loginType && userData.type == 'buyer') {
-                    console.log('wrong type');
+				if (userData.type != loginType && (loginType == 'seller' || loginType == 'admin')) {
+                    console.log('wrong type', loginType);
 					return fail(400, { invalid: true });
 				}
 				const userToken = createToken(userData);

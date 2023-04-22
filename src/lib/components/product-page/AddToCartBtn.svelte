@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import cartStore from '$lib/stores/cart';
+	import UserStore from '$lib/stores/userStore';
 	import { getCartItemIndex, toCartItem } from '$lib/utils/cart';
 
 	export let product: any;
@@ -21,7 +22,18 @@
 		goto('/cart');
 	};
 
+
+	const getUser = () => {
+		const user = $UserStore;
+		return user;
+	};
+
 	const handleClick = () => {
+		const user = getUser();
+		if (!user) {
+			goto(`/login?redirectTo=products/${product.id}`);
+			return
+		}
 		if ($cartStore.seller_id != -1 && product.seller_id != $cartStore.seller_id) {
 			clearPopup = true;
 			return;

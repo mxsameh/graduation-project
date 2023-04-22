@@ -1,8 +1,12 @@
 <script lang='ts'>
 	import SignupForm from "$lib/components/signup/SignupForm.svelte";
+	import { clearCart } from '$lib/stores/cart';
 
   let section = 'user type'
   let user = 'buyer';
+
+  clearCart()
+  
 </script>
 
 <header class="header">

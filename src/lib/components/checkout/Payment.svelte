@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import Title from '../home-page/Title.svelte';
-  
-  const dispatcher = createEventDispatcher()
+
+	const dispatcher = createEventDispatcher();
 
 	const handleSubmit = (e: any) => {
 		const payment = e.target.payment.value;
-    dispatcher("submitOrder",{payment})
+		dispatcher('submitOrder', { payment });
 	};
 </script>
 

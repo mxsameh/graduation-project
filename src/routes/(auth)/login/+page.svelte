@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import LoginForm from '$lib/components/login/LoginForm.svelte';
+	import { clearCart } from '$lib/stores/cart';
 	import type { ActionData } from './$types';
 	export let form: ActionData;
 
@@ -9,6 +10,8 @@
 		const redirectPath = $page.url.searchParams.get('redirectTo') || '/';
 		goto(`signup/?redirectTo=${redirectPath}`);
 	};
+
+	clearCart()
 
 	let loginType = $page.url.searchParams.get('redirectTo')?.replace('/', '');
 </script>
