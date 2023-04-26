@@ -26,7 +26,7 @@
 		let products = order.products.map((p: any) => {
 			return { id: p.id, quantity: p.quantity };
 		});
-		order = { ...order, products, buyerId: user.id };
+		order = { ...order, products, buyer_id: user.id, seller_id: $cartStore.seller_id };
 
 		// add order to db
 		addOrder(order).then((data) => {

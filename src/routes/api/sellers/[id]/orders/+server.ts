@@ -8,14 +8,16 @@ const ordersTable = new orders();
 export const GET = async (e: RequestEvent) => {
 	const authHeader = e.request.headers.get('authorization');
 	const userToken = authHeader?.split(' ')[1];
-    const user : any = decodeToken(userToken as string)
-	const id = user?.id
+	const user: any = decodeToken(userToken as string);
+	const id = user?.id;
 
-	const orderIds = await ordersTable.getSellerOrders(4);
+	const seller_id = parseInt(e.params.id);
+
+	const orderIds = await ordersTable.getSellerOrders(seller_id);
 	let orders: any = [];
 	for (const id of orderIds) {
 		const order = await ordersTable.getOrder(id);
 		orders.push(order);
 	}
-    return json(orders)
+	return json(orders);
 };

@@ -13,37 +13,34 @@
 		time: string;
 		products: [];
 		shipping: number;
-    subtotal: number;
+		subtotal: number;
 		total: number;
 		payment: string;
 	}
 
-  const dispatcher = createEventDispatcher();
+	const dispatcher = createEventDispatcher();
 
 	let shipping = 50;
-  let subtotal = getSubtotal(products)
+	let subtotal = getSubtotal(products);
 
 	const total = subtotal + shipping;
 
-  const submitOrder = (e: any) =>
-  {
-    const payment = e.detail.payment
+	const submitOrder = (e: any) => {
+		const payment = e.detail.payment;
 		const { date, time } = getDate();
 
-    const order : Iorder = {
-      date,
-      time,
-      products,
-      shipping,
-      subtotal,
-      total,
-      payment
-    } 
+		const order: Iorder = {
+			date,
+			time,
+			products,
+			shipping,
+			subtotal,
+			total,
+			payment
+		};
 
-    dispatcher("submitOrder",{order})
-
-  }
-
+		dispatcher('submitOrder', { order });
+	};
 </script>
 
 <section class="order">
@@ -75,69 +72,70 @@
 		</div>
 	</div>
 
-  <Payment on:submitOrder={submitOrder} />
+	<Payment on:submitOrder={submitOrder} />
 </section>
 
 <style lang="scss">
 	.order {
-    flex-basis: 35%;
+		flex-basis: 35%;
 		margin: 0 16px;
 	}
 	.invoice {
-    background-color: white;
-    margin-top: 24px;
-    padding: 30px;
+		background-color: white;
+		margin-top: 24px;
+		padding: 30px;
 	}
-  .products{
-    border-bottom: 1px solid #555;
-    margin-bottom: 24px;
-    &_title{
-      margin-bottom: 16px;
-      color: #333;
-      text-transform: capitalize;
-      font-size: 18px;
-    }
-  }
-  .products ul{
-    max-height: 220px;
-    overflow-y: auto;
-  }
-  .product{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    &_name, &_price{
-      font-size: 16px;
-      color: #555;
-      text-transform: capitalize;
-    }
-  }
+	.products {
+		border-bottom: 1px solid #555;
+		margin-bottom: 24px;
+		&_title {
+			margin-bottom: 16px;
+			color: #333;
+			text-transform: capitalize;
+			font-size: 18px;
+		}
+	}
+	.products ul {
+		max-height: 220px;
+		overflow-y: auto;
+	}
+	.product {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 16px;
+		&_name,
+		&_price {
+			font-size: 16px;
+			color: #555;
+			text-transform: capitalize;
+		}
+	}
 
-  .subtotal, .shipping{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 16px;
+	.subtotal,
+	.shipping {
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 16px;
 
-    &_title{
-      color: #333;
-      text-transform: capitalize;
-      font-size: 18px;
-    }
-  }
+		&_title {
+			color: #333;
+			text-transform: capitalize;
+			font-size: 18px;
+		}
+	}
 
-  .shipping{
-    border-bottom: 1px solid #555;
-  }
+	.shipping {
+		border-bottom: 1px solid #555;
+	}
 
-  .total{
-    margin-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    &_title, &_price{
-      font-size: 20px;
-      text-transform: capitalize;
-    }
-  }
-
-
+	.total {
+		margin-top: 24px;
+		display: flex;
+		justify-content: space-between;
+		&_title,
+		&_price {
+			font-size: 20px;
+			text-transform: capitalize;
+		}
+	}
 </style>

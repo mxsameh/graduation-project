@@ -11,7 +11,7 @@ export const GET = async (e: RequestEvent) => {
     const user : any = decodeToken(userToken as string)
 	const id = user.id
 
-	const orderIds = await ordersTable.getAllUserOrders(id);
+	const orderIds = await ordersTable.getBuyerOrders(id);
 	let orders: any = [];
 	for (const id of orderIds) {
 		const order = await ordersTable.getOrder(id);

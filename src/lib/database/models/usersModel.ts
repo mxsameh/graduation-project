@@ -106,13 +106,13 @@ export default class Users
         }
     }
 
-    async delete( email : string ) : Promise <Boolean>
+    async delete( id : number ) : Promise <Boolean>
     {
         try
         {
             const connection = await db.connect()
-            const sql = `DELETE FROM users WHERE email=$1`
-            const result = await connection.query(sql, [email])
+            const sql = `DELETE FROM users WHERE id=$1`
+            const result = await connection.query(sql, [id])
 
             connection.release()
             return true

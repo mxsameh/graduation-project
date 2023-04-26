@@ -1,70 +1,57 @@
-<script lang='ts'>
-	import { page } from "$app/stores";
-	import Header from "$lib/components/seller/Header.svelte";
-  import AddPopup from "$lib/components/seller/ProductPopup.svelte"
-	import { onMount } from "svelte";
-	import Dashboard from "$lib/components/admin/Dashboard.svelte";
-  
-  export let data;
+<script lang="ts">
+	import { page } from '$app/stores';
+	import Header from '$lib/components/seller/Header.svelte';
+	import AddPopup from '$lib/components/seller/ProductPopup.svelte';
+	import Dashboard from '$lib/components/admin/Dashboard.svelte';
 
-  const seller = data.seller
-  const sellerToken = data.sellerToken
-  const origin = $page.url.origin + `/api/sellers/${seller.id}`
+	export let data;
 
-  let products : any;
-  let isPopupOpened = false
+	const seller = data.seller;
+	const sellerToken = data.sellerToken;
+	const url = $page.url.origin + `/api/sellers/${seller.id}`;
+	const origin = $page.url.origin;
 
-  let tabs = [
-    {name: 'products', itemsUrl:`${origin}/products`},
-    {name: 'orders', itemsUrl:`${origin}/orders`}
-  ]
+	let isPopupOpened = false;
 
-  // const getProducts = async() =>
-  // {
-  //   const response = await fetch(`${origin}/api/sellers/${seller.id}/products`)
-  //   const body = await response.json()
-  //   const products = body.products
-  //   return products
-  // }
+	let tabs = [
+		{ name: 'products', itemsUrl: `${url}/products` },
+		{ name: 'orders', itemsUrl: `${url}/orders` }
+	];
 
+	const handleAddClick = () => {
+		// open popup
+		isPopupOpened = true;
+	};
 
-  const handleAddClick = () =>
-  {
-    // open popup
-    isPopupOpened = true
-  }
-  
-  const handleClose = () =>
-  {
-    isPopupOpened = false
-  }
-  const handleSubmit = async (e : any) =>
-  {
-    const newProduct = {...e.detail.product, sellerId : seller.id }
-    const response = await fetch(`${origin}/api/products`,{
-      method : "POST",
-      body : JSON.stringify({product : newProduct})
-    })
+	const handleClose = () => {
+		isPopupOpened = false;
+	};
+	const handleSubmit = async (e: any) => {
+		const newProduct = { ...e.detail.product, seller_id: seller.id };
 
-    // getProducts().then(data=>products = data)
-    // isPopupOpened = false 
-  }
-
+		const req = await fetch(`${origin}/api/products`, {
+			method: 'POST',
+			body: JSON.stringify({ product: newProduct })
+		});
+		const res = req.json();
+		res.then((data) => {
+			if (data.success) handleClose();
+		});
+	};
 </script>
 
-<Header on:addButtonClicked={handleAddClick}/>
+<Header on:addButtonClicked={handleAddClick} />
 {#if isPopupOpened}
-<AddPopup close={handleClose} on:submitClicked={handleSubmit}/>
+	<AddPopup close={handleClose} on:submitClicked={handleSubmit} />
 {/if}
 
 <main class="main">
-  <Dashboard {tabs} token={sellerToken}/>
+	<Dashboard {tabs} token={sellerToken} />
 </main>
 
-<style lang='scss'>
-  .main{
-    width: 100%;
-    height: calc(100vh - 80px);
-  }
-  
+<style lang="scss">
+	.main {
+		width: 100%;
+		height: calc(100vh - 80px);
+	}
 </style>

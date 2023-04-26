@@ -5,6 +5,7 @@
 
 	export let data;
 	const admin = data.admin;
+	const token = data.token
 
     const origin = $page.url.origin+'/api'
 
@@ -17,7 +18,7 @@
 
 <Header name={admin.name} />
 <div class="container">
-	<Dashboard {tabs} />
+	<Dashboard {tabs} {token} />
 </div>
 
 <style lang="scss">

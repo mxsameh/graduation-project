@@ -9,6 +9,7 @@ export const load = (event) =>
         throw redirect(307,'login?redirectTo=/admin')
     }
     return{
-        admin:event.locals.user
+        admin: event.locals.user,
+        token: event.locals.userToken
     }
 }

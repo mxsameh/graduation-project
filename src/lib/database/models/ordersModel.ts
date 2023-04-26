@@ -10,7 +10,8 @@ type Order = {
 	subtotal: number;
 	total: number;
 	payment: string;
-	buyerId: number;
+	buyer_id: number;
+	seller_id : number
 };
 
 const add = (conn: PoolClient, products: any, orderId: number) => {
@@ -37,12 +38,12 @@ const getProduct = async (conn: PoolClient, productId: number) => {
 };
 
 export default class orders {
-	async getAllUserOrders(userId: number): Promise<any> {
+	async getBuyerOrders(buyer_id: number): Promise<any> {
 		try {
 			const connection = await db.connect();
 			let orders: any = [];
 			const sql = `SELECT id FROM orders WHERE buyer_id=$1`;
-			const res = await connection.query(sql, [userId]);
+			const res = await connection.query(sql, [buyer_id]);
 			const ordersIds = res.rows;
 			ordersIds.forEach((item) => {
 				orders.push(item.id);
@@ -51,16 +52,16 @@ export default class orders {
 			connection.release();
 			return orders;
 		} catch (err) {
-			throw new Error(`Couldn't get order ${userId}\n${err}`);
+			throw new Error(`Couldn't get order ${buyer_id}\n${err}`);
 		}
 	}
 
-	async getSellerOrders(sellerId: number) {
+	async getSellerOrders(seller_id: number) {
 		try {
 			const connection = await db.connect();
 			let orders: any = [];
 			const sql = `SELECT id FROM orders WHERE seller_id=$1`;
-			const res = await connection.query(sql, [sellerId]);
+			const res = await connection.query(sql, [seller_id]);
 			const ordersIds = res.rows;
 			ordersIds.forEach((item) => {
 				orders.push(item.id);
@@ -69,7 +70,7 @@ export default class orders {
 			connection.release();
 			return orders;
 		} catch (err) {
-			throw new Error(`Couldn't get order ${sellerId}\n${err}`);
+			throw new Error(`Couldn't get order ${seller_id}\n${err}`);
 		}
 	}
 
@@ -99,7 +100,7 @@ export default class orders {
 	async create(newOrder: Order): Promise<Order> {
 		try {
 			const connection = await db.connect();
-			const sql = `INSERT INTO orders (date, time, shipping, subtotal, total, payment, buyer_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+			const sql = `INSERT INTO orders (date, time, shipping, subtotal, total, payment, buyer_id, seller_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
 			const result = await connection.query(sql, [
 				newOrder.date,
 				newOrder.time,
@@ -107,7 +108,8 @@ export default class orders {
 				newOrder.subtotal,
 				newOrder.total,
 				newOrder.payment,
-				newOrder.buyerId
+				newOrder.buyer_id,
+				newOrder.seller_id
 			]);
 
 			const order = result.rows[0];

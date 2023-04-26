@@ -6,9 +6,9 @@ type Product = {
 	price: number;
 	images: string;
 	category: string;
-	sellerId: number;
-	reviewsNumber: number;
-	reviewsStars: number;
+	seller_id: number;
+	reviews_number: number;
+	reviews_stars: number;
 	description: string
 	information: string
 	details: string
@@ -109,13 +109,18 @@ export default class Products {
 	async createProduct(newProduct: Product): Promise<Product> {
 		try {
 			const connection = await db.connect();
-			const sql = `INSERT INTO products (name, price, images, category, seller_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+			const sql = `INSERT INTO products (name, price, images, category, reviews_number, reviews_stars, details, description, information, seller_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
 			const result = await connection.query(sql, [
 				newProduct.name,
 				newProduct.price,
 				newProduct.images.toString(),
 				newProduct.category,
-				newProduct.sellerId
+				newProduct.reviews_number,
+				newProduct.reviews_stars,
+				newProduct.details,
+				newProduct.description,
+				newProduct.information,
+				newProduct.seller_id
 			]);
 			const product = result.rows[0];
 

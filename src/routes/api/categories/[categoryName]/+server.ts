@@ -6,10 +6,9 @@ const productsTable = new Products()
 
 export const GET = async ( event : RequestEvent ) =>
 {
-    
     let categoryName = event.params.categoryName
     categoryName= categoryName.replaceAll('-',' ')
-    const products = await productsTable.findByCategory(categoryName)
+    const products = await productsTable.getByCategory(categoryName)
 
     return json(products)
 }

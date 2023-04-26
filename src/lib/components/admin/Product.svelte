@@ -20,13 +20,12 @@
 	};
 
 	const saveEdits = async (e: any) => {
-		product = product;
+		product = e.detail.product;
 		const respone = await fetch(`${origin}`, {
 			method: 'PUT',
 			body: JSON.stringify({ product })
 		});
 		const data = await respone.json();
-
 		isPopupOpened = false;
 	};
 
