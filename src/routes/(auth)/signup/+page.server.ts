@@ -26,6 +26,7 @@ export const actions = {
         {
             // Create a cookie that contains the user token
             event.cookies.set('user token',data.userToken)
+            // Redirect the user to home page if there is no redirection param
             const redirectPath = event.url.searchParams.get('redirectTo') || '/'
             throw redirect(303, redirectPath)
         }

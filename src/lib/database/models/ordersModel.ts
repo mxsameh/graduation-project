@@ -10,8 +10,14 @@ type Order = {
 	subtotal: number;
 	total: number;
 	payment: string;
+	status: string;
+	delivery_id: number;
 	buyer_id: number;
-	seller_id : number
+	seller_id: number;
+	city: string;
+	country: string;
+	address: string;
+	zip_code: number;
 };
 
 const add = (conn: PoolClient, products: any, orderId: number) => {
@@ -99,24 +105,30 @@ export default class orders {
 
 	async create(newOrder: Order): Promise<Order> {
 		try {
-			const connection = await db.connect();
-			const sql = `INSERT INTO orders (date, time, shipping, subtotal, total, payment, buyer_id, seller_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
-			const result = await connection.query(sql, [
+			let connection = await db.connect();
+			let sql = `INSERT INTO orders (date, time, shipping, subtotal, total, payment, status, delivery_id, buyer_id, seller_id, country, city, address, zip_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
+			let result = await connection.query(sql, [
 				newOrder.date,
 				newOrder.time,
 				newOrder.shipping,
 				newOrder.subtotal,
 				newOrder.total,
 				newOrder.payment,
+				newOrder.status,
+				newOrder.delivery_id,
 				newOrder.buyer_id,
-				newOrder.seller_id
+				newOrder.seller_id,
+				newOrder.country,
+				newOrder.city,
+				newOrder.address,
+				newOrder.zip_code,
 			]);
 
 			const order = result.rows[0];
 			add(connection, newOrder.products, order.id);
-			// connection.release();
 			return order;
 		} catch (err) {
+			console.log(err);
 			throw new Error(`Couldn't create order\n${err}`);
 		}
 	}

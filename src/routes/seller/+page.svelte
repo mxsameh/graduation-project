@@ -10,6 +10,7 @@
 	const sellerToken = data.sellerToken;
 	const url = $page.url.origin + `/api/sellers/${seller.id}`;
 	const origin = $page.url.origin;
+	let productAdded: Boolean;
 
 	let isPopupOpened = false;
 
@@ -36,6 +37,7 @@
 		const res = req.json();
 		res.then((data) => {
 			if (data.success) handleClose();
+			productAdded = !productAdded
 		});
 	};
 </script>
@@ -46,7 +48,9 @@
 {/if}
 
 <main class="main">
+	{#key productAdded}
 	<Dashboard {tabs} token={sellerToken} />
+	{/key}
 </main>
 
 <style lang="scss">

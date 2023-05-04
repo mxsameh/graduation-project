@@ -8,6 +8,12 @@ CREATE TABLE orders (
     subtotal numeric NOT NULL,
     total numeric NOT NULL,
     payment varchar(100) NOT NULL,
-    seller_id int REFERENCES users(id) ON DELETE CASCADE
-    buyer_id int REFERENCES users(id) ON DELETE CASCADE
+    status varchar(100),
+    country varchar(200),
+    city varchar(200),
+    address TEXT,
+    zip_code int,
+    seller_id int REFERENCES users(id) ON DELETE CASCADE,
+    buyer_id int REFERENCES users(id) ON DELETE CASCADE,
+    delivery_id int REFERENCES users(id) ON DELETE CASCADE
 );

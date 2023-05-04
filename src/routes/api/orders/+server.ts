@@ -8,8 +8,8 @@ const ordersTable = new orders();
 export const GET = async (e: RequestEvent) => {
 	const authHeader = e.request.headers.get('authorization');
 	const userToken = authHeader?.split(' ')[1];
-    const user : any = decodeToken(userToken as string)
-	const id = user.id
+	const user: any = decodeToken(userToken as string);
+	const id = user.id;
 
 	const orderIds = await ordersTable.getBuyerOrders(id);
 	let orders: any = [];
@@ -17,7 +17,7 @@ export const GET = async (e: RequestEvent) => {
 		const order = await ordersTable.getOrder(id);
 		orders.push(order);
 	}
-    return json(orders)
+	return json(orders);
 };
 
 export const POST = async (e: RequestEvent) => {

@@ -4,7 +4,7 @@
 
 <div class="info">
   <label class="label" for={input.id}>{input.label}</label>
-  <input class="input" id={input.id} type="text" placeholder={input.placeholder}>
+  <input class="input" id={input.id} type={input.type} placeholder={input.placeholder} required>
 </div>
 
 <style lang="scss">
