@@ -1,12 +1,11 @@
-<script lang='ts'>
-	import SignupForm from "$lib/components/signup/SignupForm.svelte";
+<script lang="ts">
+	import SignupForm from '$lib/components/signup/SignupForm.svelte';
 	import { clearCart } from '$lib/stores/cart';
 
-  let section = 'user type'
-  let user = 'buyer';
+	let section = 'user type';
+	let user = 'buyer';
 
-  clearCart()
-  
+	clearCart();
 </script>
 
 <header class="header">
@@ -33,72 +32,99 @@
 </header>
 
 <main class="signup">
-  {#if section == 'user type' }
-  <h1 class="signup__title">Please choose which suits you</h1>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="signup__user-list">
-    <h3 class:signup__user-active={user=='buyer'} class="signup__user" on:click={()=>{user = 'buyer'}}>buyer</h3>
-    <h3 class:signup__user-active={user=='seller'} class="signup__user" on:click={()=>{user = 'seller'}}>seller</h3>
-    <h3 class:signup__user-active={user=='delivery'} class="signup__user" on:click={()=>{user = 'delivery'}}>delivery</h3>
-  </div>
-  <button class="signup__next-btn" on:click={()=>{section = 'user info';}}>next</button>
-  {:else}
-  <SignupForm />
-  {/if}
+	{#if section == 'user type'}
+		<h1 class="signup__title">Please choose which suits you</h1>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="signup__user-list">
+			<h3
+				class:signup__user-active={user == 'buyer'}
+				class="signup__user"
+				on:click={() => {
+					user = 'buyer';
+				}}
+			>
+				buyer
+			</h3>
+			<h3
+				class:signup__user-active={user == 'seller'}
+				class="signup__user"
+				on:click={() => {
+					user = 'seller';
+				}}
+			>
+				seller
+			</h3>
+			<h3
+				class:signup__user-active={user == 'delivery'}
+				class="signup__user"
+				on:click={() => {
+					user = 'delivery';
+				}}
+			>
+				delivery
+			</h3>
+		</div>
+		<button
+			class="signup__next-btn"
+			on:click={() => {
+				section = 'user info';
+			}}>next</button
+		>
+	{:else}
+		<SignupForm userType={user} />
+	{/if}
 </main>
 
-<style lang='scss'>
-  .header{
-    width: 100vw;
-    padding: 16px;
+<style lang="scss">
+	.header {
+		width: 100vw;
+		padding: 16px;
 
-    &__logo{
-      width: 200px;
-      fill: var(--color-4);
-      display: block;
-      margin: 0 auto;
-    }
-  }
-  .signup{
-    max-width: 600px;
-    margin: 40px auto;
-    &__title{
-      color: #333;
-      text-align: center;
-    }
-    &__user-list{
-      margin-top: 40px;
-    }
-    &__user{
-      background-color: var(--color-3);
-      color: white;
-      margin-bottom: 24px;
-      font-size: 20px;
-      text-transform: capitalize;
-      padding: 16px;
-      text-align: center;
-      border-radius: 6px;
-      &:hover{
-        cursor: pointer;
-      }
-      &-active{
-        background-color: var(--color-4);
-        color:black;
-      }
-    }
-    &__next-btn{
-      background-color: var(--color-2);
-      width: 100%;
-      padding: 20px;
-      font-size: 20px;
-      text-transform: uppercase;
-      margin-top: 40px;
-      border-radius: 6px;
-      &:hover{
-        cursor: pointer;
-      }
-    }
-  }
-
-
+		&__logo {
+			width: 200px;
+			fill: var(--color-4);
+			display: block;
+			margin: 0 auto;
+		}
+	}
+	.signup {
+		max-width: 600px;
+		margin: 40px auto;
+		&__title {
+			color: #333;
+			text-align: center;
+		}
+		&__user-list {
+			margin-top: 40px;
+		}
+		&__user {
+			background-color: var(--color-3);
+			color: white;
+			margin-bottom: 24px;
+			font-size: 20px;
+			text-transform: capitalize;
+			padding: 16px;
+			text-align: center;
+			border-radius: 6px;
+			&:hover {
+				cursor: pointer;
+			}
+			&-active {
+				background-color: var(--color-4);
+				color: black;
+			}
+		}
+		&__next-btn {
+			background-color: var(--color-2);
+			width: 100%;
+			padding: 20px;
+			font-size: 20px;
+			text-transform: uppercase;
+			margin-top: 40px;
+			border-radius: 6px;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
 </style>

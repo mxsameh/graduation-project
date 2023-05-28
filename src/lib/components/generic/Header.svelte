@@ -43,6 +43,8 @@
   <a class="login-btn" href="/seller">Seller Dashboard</a>
   {:else if user?.type == "admin"}
   <a class="login-btn" href="/admin">Admin Dashboard</a>
+  {:else if user?.type == "delivery"}
+  <a class="login-btn" href="/delivery">Delivery Dashboard</a>
   {:else}
   <a class="login-btn" href="/login?redirectTo=/">login</a>
   {/if}

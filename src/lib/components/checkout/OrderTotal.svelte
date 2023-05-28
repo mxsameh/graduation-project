@@ -12,18 +12,19 @@
 		date: string;
 		time: string;
 		products: [];
-		shipping: number;
 		subtotal: number;
+		taxes: number;
 		total: number;
 		payment: string;
 	}
 
 	const dispatcher = createEventDispatcher();
 
-	let shipping = 50;
+	let shipping = "-";
 	let subtotal = getSubtotal(products);
+	let taxes = .1 * subtotal
 
-	const total = subtotal + shipping;
+	const total = subtotal + taxes;
 
 	const submitOrder = (e: any) => {
 		const payment = e.detail.payment;
@@ -33,8 +34,8 @@
 			date,
 			time,
 			products,
-			shipping,
 			subtotal,
+			taxes,
 			total,
 			payment
 		};
@@ -62,9 +63,13 @@
 			<h3 class="subtotal_title">subtotal</h3>
 			<span class="subtotal_price">${subtotal}</span>
 		</div>
+		<div class="taxes">
+			<h3 class="taxes_title">taxes</h3>
+			<span class="taxes_price">${taxes}</span>
+		</div>
 		<div class="shipping">
 			<h3 class="shipping_title">shipping</h3>
-			<span class="shipping_price">${shipping}</span>
+			<span class="shipping_price">{shipping}</span>
 		</div>
 		<div class="total">
 			<h3 class="total_title">total</h3>
@@ -112,7 +117,8 @@
 	}
 
 	.subtotal,
-	.shipping {
+	.shipping,
+	.taxes {
 		display: flex;
 		justify-content: space-between;
 		padding-bottom: 16px;

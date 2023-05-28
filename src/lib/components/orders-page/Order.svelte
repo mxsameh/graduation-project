@@ -11,6 +11,7 @@
 		orderTime={order.time}
 		orderTotal={order.total}
 		orderShipping={order.shipping}
+		orderTaxes={order.taxes}
 	/>
 	<OrderBody products={order.products} />
 </div>

@@ -6,6 +6,7 @@ CREATE TABLE orders (
     time varchar(100) NOT NULL,
     shipping numeric NOT NULL,
     subtotal numeric NOT NULL,
+    taxes numeric NOT NULL,
     total numeric NOT NULL,
     payment varchar(100) NOT NULL,
     status varchar(100),

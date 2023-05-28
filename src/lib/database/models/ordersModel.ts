@@ -7,6 +7,7 @@ type Order = {
 	date: string;
 	time: string;
 	shipping: number;
+	taxes: number;
 	subtotal: number;
 	total: number;
 	payment: string;
@@ -80,6 +81,24 @@ export default class orders {
 		}
 	}
 
+	async getDeliveryOrders(delivery_id: number) {
+		try {
+			const connection = await db.connect();
+			let orders: any = [];
+			const sql = `SELECT id FROM orders WHERE delivery_id=$1`;
+			const res = await connection.query(sql, [delivery_id]);
+			const ordersIds = res.rows;
+			ordersIds.forEach((item) => {
+				orders.push(item.id);
+			});
+
+			connection.release();
+			return orders;
+		} catch (err) {
+			throw new Error(`Couldn't get orders of id: ${delivery_id}\n${err}`);
+		}
+	}
+
 	async getOrder(orderId: number): Promise<Order> {
 		try {
 			const connection = await db.connect();
@@ -106,12 +125,13 @@ export default class orders {
 	async create(newOrder: Order): Promise<Order> {
 		try {
 			let connection = await db.connect();
-			let sql = `INSERT INTO orders (date, time, shipping, subtotal, total, payment, status, delivery_id, buyer_id, seller_id, country, city, address, zip_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`;
+			let sql = `INSERT INTO orders (date, time, shipping, subtotal, taxes, total, payment, status, delivery_id, buyer_id, seller_id, country, city, address, zip_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
 			let result = await connection.query(sql, [
 				newOrder.date,
 				newOrder.time,
 				newOrder.shipping,
 				newOrder.subtotal,
+				newOrder.taxes,
 				newOrder.total,
 				newOrder.payment,
 				newOrder.status,
@@ -121,15 +141,27 @@ export default class orders {
 				newOrder.country,
 				newOrder.city,
 				newOrder.address,
-				newOrder.zip_code,
+				newOrder.zip_code
 			]);
 
 			const order = result.rows[0];
 			add(connection, newOrder.products, order.id);
 			return order;
 		} catch (err) {
-			console.log(err);
 			throw new Error(`Couldn't create order\n${err}`);
+		}
+	}
+
+	async updateStatus(status: string, orderId: number): Promise<any> {
+		try {
+			const connection = await db.connect();
+			const sql = `UPDATE orders SET status = $1 WHERE id = $2`;
+			const res = connection.query(sql, [status, orderId]);
+
+			connection.release();
+			return { success: true };
+		} catch (error) {
+			throw new Error(error);
 		}
 	}
 

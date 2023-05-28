@@ -1,52 +1,17 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import Billing from '$lib/components/checkout/Billing.svelte';
 	import OrderTotal from '$lib/components/checkout/OrderTotal.svelte';
-	import cartStore, { clearCart } from '$lib/stores/cart';
+	import cartStore from '$lib/stores/cart';
+	import { addOrder } from '$lib/database/firebase/orders';
+	import RequestsPopup from '$lib/components/checkout/RequestsPopup.svelte';
 
 	export let data;
 	let user = data.user;
-	let isValidOrder : Boolean = true;
+	let isValidOrder: Boolean = true;
+	let openedOffers = false;
+	let order: any;
 
-	const addOrder = async (order: any) => {
-		clearCart();
-		const url = $page.url.origin + '/api/orders';
-		const req = await fetch(url, {
-			method: 'POST',
-			body: JSON.stringify({ order }),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const response = await req.json();
-	};
-
-	const submitOrder = async (e: any) => {
-		let user_billing = getInfo();
-		if(!isValidOrder) return
-		let order = e.detail.order;
-		let products = order.products.map((p: any) => {
-			return { id: p.id, quantity: p.quantity };
-		});
-
-		let delivery_id = 4;
-		let status = 'preparing';
-		order = {
-			...order,
-			products,
-			status,
-			delivery_id,
-			buyer_id: user.id,
-			seller_id: $cartStore.seller_id,
-			...user_billing
-		};
-
-		// add order to db
-		addOrder(order).then((data) => {
-			goto('/orders');
-		});
-	};
+	// Get Address Info
 	const getInfo = () => {
 		const formEl = document.getElementById('billingForm') as HTMLFormElement;
 		isValidOrder = formEl.checkValidity();
@@ -54,16 +19,46 @@
 			city: formEl.city.value,
 			country: formEl.country.value,
 			zip_code: parseInt(formEl.zipCode.value),
-			address: formEl.address.value
+			location: formEl.address.value
 		};
 		return user_billing;
+	};
+
+	// Submit Order to DB
+	const placeOrder = async (e: any) => {
+		const user_billing = getInfo();
+		if (!isValidOrder) return;
+		let submittedOrder = e.detail.order;
+		const products = submittedOrder.products;
+
+		let status = 'pending';
+		submittedOrder = {
+			...submittedOrder,
+			products,
+			status,
+			buyer_id: user.id,
+			requests: [],
+			seller_id: $cartStore.seller_id,
+			address: { ...user_billing }
+		};
+
+		order = addOrder(submittedOrder);
+		openedOffers = true;
+	};
+
+	const closeOffers = () => {
+		openedOffers = false;
 	};
 </script>
 
 <main class="main">
 	{#if $cartStore}
 		<Billing valid={isValidOrder} />
-		<OrderTotal products={$cartStore.products} on:submitOrder={submitOrder} />
+		<OrderTotal products={$cartStore.products} on:submitOrder={placeOrder} />
+	{/if}
+
+	{#if openedOffers}
+		<RequestsPopup {closeOffers} {order} />
 	{/if}
 </main>
 

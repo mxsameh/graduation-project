@@ -30,3 +30,14 @@ export const POST = async (e: RequestEvent) => {
 		return json({ success: false, msg: err.message });
 	}
 };
+
+export const PATCH = async (e: RequestEvent) => {
+	try {
+		const body = await e.request.json();
+		const { orderId, status } = body;
+		const { success } = await ordersTable.updateStatus(status, orderId);
+		return json({ success });
+	} catch (err) {
+		return json({ success: false, msg: err.message });
+	}
+};
