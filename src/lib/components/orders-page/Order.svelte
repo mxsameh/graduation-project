@@ -3,6 +3,7 @@
 	import OrderHeader from './OrderHeader.svelte';
 	export let order: any;
 
+	console.log(order);
 </script>
 
 <div class="order">
@@ -12,6 +13,7 @@
 		orderTotal={order.total}
 		orderShipping={order.shipping}
 		orderTaxes={order.taxes}
+		delivered={order.status}
 	/>
 	<OrderBody products={order.products} />
 </div>

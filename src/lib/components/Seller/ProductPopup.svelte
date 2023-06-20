@@ -1,4 +1,5 @@
 <script lang="ts">
+	import categoriesStore from '$lib/stores/categories';
 	import { createEventDispatcher } from 'svelte';
 
 	interface Product {
@@ -25,12 +26,13 @@
 		details: '',
 		reviews_number: 0,
 		reviews_stars: 0
-
 	};
 	export let close = () => {};
 
 	const dispatch = createEventDispatcher();
-	const categories = ['junk food', 'food', 'drinks'];
+	// const categories = ['junk food', 'food', 'drinks'];
+	const categories = $categoriesStore.map((categ) => categ.name);
+	console.log(categories);
 	let formEl: HTMLFormElement;
 	let isFormValid = true;
 

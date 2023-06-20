@@ -3,43 +3,38 @@ import { writable } from 'svelte/store';
 const data = [
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'fruits',
 		productsNumber: '40'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'vegetables',
 		productsNumber: '100'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'herbs & spices',
 		productsNumber: '10'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'prepared',
 		productsNumber: '80'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'frozen',
 		productsNumber: '40'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
+		name: 'canned',
 		productsNumber: '100'
 	},
 	{
 		image: '/groc.jpg',
-		name: 'category',
-		productsNumber: '10'
-	},
-	{
-		image: '/groc.jpg',
-		name: 'category',
-		productsNumber: '80'
+		name: 'sweets',
+		productsNumber: '100'
 	}
 ];
 

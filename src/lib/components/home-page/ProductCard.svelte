@@ -20,6 +20,9 @@
 		width: clamp(200px, 100%, 500px);
 		overflow: hidden;
 		background-color: white;
+		border-radius: 24px;
+		padding: 12px;
+		box-shadow: 1px 4px 16px 4px rgb(0, 0, 0, 0.1);
 
 		&_image {
 			width: 100%;
